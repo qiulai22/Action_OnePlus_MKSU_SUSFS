@@ -182,6 +182,18 @@ jobs:
           echo "vfs_patch完成"
           fi
 
+        
+      - name: 设定 CONFIG 环境变量
+        run: |
+          # Set CONFIG dynamically based on inputs values
+          CONFIG="${{ github.event.inputs.ANDROID_VERSION }}-${{ github.event.inputs.KERNEL_VERSION }}-75"
+
+          # Set CONFIG as an environment variable for future steps
+          echo "CONFIG=$CONFIG" >> $GITHUB_ENV
+
+          echo "CONFIG set to: $CONFIG"
+
+          
       - name: Apply LZ4KD
         run: |
           echo "Changing to configuration directory: $CONFIG..."
