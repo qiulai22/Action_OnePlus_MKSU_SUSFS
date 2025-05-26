@@ -200,9 +200,11 @@ jobs:
           echo "正在打lz4k_oplus补丁"
           patch -p1 -F 3 < lz4k_oplus.patch || true
           echo '完成lz4k_oplus补丁'
+
+
           
-          - name: LZ4KD&Lz4k_oplus配置
-            run: |
+      - name: LZ4KD&Lz4k_oplus配置
+        run: |
           echo "写入LZ4KD&ZSTDN config依赖"
           CONFIG_FILE="$CONFIG/common/arch/arm64/configs/gki_defconfig"
 
