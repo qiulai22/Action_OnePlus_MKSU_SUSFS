@@ -7,13 +7,13 @@ on:
         description: "分支"
         required: true
         options:
-          - sm7675
+          - sm8650
       FEIL:
         type: choice
         description: "配置文件"
         required: true
         options:
-          - GTneo6SE
+          - gt6
       CPUD:
         type: choice
         description: "处理器代号"
@@ -44,7 +44,7 @@ on:
         type: boolean
         description: "下载SUSFS模块是否使用CI构建？"
         required: true
-        default: true
+        default: false
       VFS:
         type: boolean
         description: "是否启用手动钩子？"
@@ -109,7 +109,7 @@ jobs:
       - name: Initialize repo and sync
         run: |
           mkdir kernel_workspace && cd kernel_workspace
-          repo init -u https://github.com/LinMoyuu/kernel_manifest.git -b refs/heads/realme/${{ github.event.inputs.CPU }} -m ${{ github.event.inputs.FEIL }}.xml --depth=1
+          repo init -u https://github.com/qiulai22/kernel_manifest.git -b refs/heads/realme/${{ github.event.inputs.CPU }} -m ${{ github.event.inputs.FEIL }}.xml --depth=1
           repo sync
           if [  -e kernel_platform/common/BUILD.bazel ]; then
           sed -i '/^[[:space:]]*"protected_exports_list"[[:space:]]*:[[:space:]]*"android\/abi_gki_protected_exports_aarch64",$/d' kernel_platform/common/BUILD.bazel
@@ -317,7 +317,7 @@ jobs:
 
       - name: Make AnyKernel3
         run: |
-          git clone https://github.com/Numbersf/AnyKernel3 --depth=1
+          git clone https://github.com/qiulai22/AnyKernel3 --depth=1
           rm -rf ./AnyKernel3/.git
 
           dir1="kernel_workspace/kernel_platform/out/msm-kernel-${{ github.event.inputs.CPUD }}-${{ github.event.inputs.BUILD_METHOD }}/dist/"
@@ -377,7 +377,7 @@ jobs:
         if: ${{ github.event.inputs.KPM == 'true' }}
         run: |
           cd /home/runner/work/Action_OnePlus_MKSU_SUSFS/Action_OnePlus_MKSU_SUSFS/kernel_workspace/kernel_platform/out/msm-kernel-${{ github.event.inputs.CPUD }}-${{ github.event.inputs.BUILD_METHOD }}/dist
-          curl -LO https://raw.githubusercontent.com/Numbersf/Action-Build/main/patch_linux
+          curl -LO https://raw.githubusercontent.com/ShirkNeko/SukiSU_patch/refs/heads/main/kpm/patch_linux
           chmod +x patch_linux
           ./patch_linux
           rm -f Image
