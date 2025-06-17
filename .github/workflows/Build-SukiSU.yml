@@ -6,7 +6,7 @@ on:
         type: choice
         description: "分支"
         required: true
-        default: sm8550
+        default: sm8650
         options:
           - sm7550
           - sm7675
@@ -19,7 +19,7 @@ on:
         type: choice
         description: "配置文件"
         required: true
-        default: oneplus_ace2pro_v
+        default: gt6
         options:
           - oneplus_nord_ce4_v
           - oneplus_ace_3v_v
@@ -42,12 +42,13 @@ on:
           - oneplus_13
           - oneplus_13t
           - oneplus_ace5_pro
+          - gt6
           - GitHub有bug可能不显示最后一项,误使用此项
       CPUD:
         type: choice
         description: "处理器代号"
         required: true
-        default: kalama
+        default: pineapple
         options:
           - crow
           - waipio
@@ -58,7 +59,7 @@ on:
         type: choice
         description: "内核安卓版本"
         required: true
-        default: android13
+        default: android14
         options:
           - android12
           - android13
@@ -68,7 +69,7 @@ on:
        type: choice
        description: "内核版本"
        required: true
-       default: "5.15"
+       default: "6.1"
        options:
          - "5.10"
          - "5.15"
@@ -86,7 +87,7 @@ on:
         type: boolean
         description: "下载SUSFS模块是否使用CI构建？"
         required: true
-        default: true
+        default: false
       VFS:
         type: boolean
         description: "是否启用手动钩子？"
@@ -151,7 +152,7 @@ jobs:
       - name: Initialize repo and sync
         run: |
           mkdir kernel_workspace && cd kernel_workspace
-          repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b refs/heads/oneplus/${{ github.event.inputs.CPU }} -m ${{ github.event.inputs.FEIL }}.xml --depth=1
+          repo init -u https://github.com/qiulai22/kernel_manifest.git -b refs/heads/realme/${{ github.event.inputs.CPU }} -m ${{ github.event.inputs.FEIL }}.xml --depth=1
           repo sync
           if [  -e kernel_platform/common/BUILD.bazel ]; then
           sed -i '/^[[:space:]]*"protected_exports_list"[[:space:]]*:[[:space:]]*"android\/abi_gki_protected_exports_aarch64",$/d' kernel_platform/common/BUILD.bazel
@@ -345,7 +346,7 @@ jobs:
 
       - name: Make AnyKernel3
         run: |
-          git clone https://github.com/Numbersf/AnyKernel3 --depth=1
+          git clone https://github.com/qiulai22/AnyKernel3 --depth=1
           rm -rf ./AnyKernel3/.git
 
           dir1="kernel_workspace/kernel_platform/out/msm-kernel-${{ github.event.inputs.CPUD }}-${{ github.event.inputs.BUILD_METHOD }}/dist/"
