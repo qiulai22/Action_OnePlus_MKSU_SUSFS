@@ -1,4 +1,4 @@
-name: Build OnePlus_SukiSU Ultra All
+name: Build kernelsu-next
 on:
   workflow_dispatch:
     inputs:
@@ -9,7 +9,7 @@ on:
         default: sm8650
         options:
           - sm7550
-          - sm7675
+          - sm7670
           - sm8450
           - sm8475
           - sm8550
