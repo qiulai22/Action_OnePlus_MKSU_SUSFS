@@ -327,6 +327,7 @@ jobs:
           fi
 
       - name: Build kernel
+        run: |
           export PATH="/usr/lib/ccache:$PATH"
           export PATH="$GITHUB_WORKSPACE/kernel_workspace/kernel_platform/prebuilts/clang/host/linux-x86/clang-r487747c/bin:$PATH"
           
